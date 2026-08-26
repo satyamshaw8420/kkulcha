@@ -1,48 +1,116 @@
-import { INFO, NEARBY, SERVICES } from "../data";
+import { DISHES, INFO, SERVICES } from "../data";
 import { useOpenStatus } from "../hooks";
-import { ArrowUpRight, PinIcon, PhoneIcon, Reveal, SectionHead, Stars } from "./chrome";
+import { ArrowUpRight, Flame, PinIcon, PhoneIcon, Plate, Reveal, SectionHead, Smoke, Spark, Stars } from "./chrome";
 
-/* ================= nearby — straight from the map results ================= */
+/* ================= the shortcut — one address, three cravings ================= */
+/* Google's map showed 3 category filters near this search. The Hhouse covers all three —
+   so we answer them here instead of sending anyone anywhere else. */
+
+const SMALL_PLATES = DISHES.filter((d) => d.cat === "starters" || d.cat === "fusion").slice(0, 6);
+
+const GROUP_PROOF = [
+  { icon: <Plate className="h-4 w-4" />, k: "All you can eat", v: "options on request" },
+  { icon: <Spark className="h-4 w-4" />, k: "Kids' menu", v: "little kulcha fans welcome" },
+  { icon: <Smoke className="h-4 w-4" />, k: "₹900 table combo", v: "hookah + drink + snacks" },
+  { icon: <Stars value={4.5} size={11} />, k: "1,108 reviews", v: "mostly tables of friends" },
+];
 
 export function NearbySection() {
   return (
-    <section id="nearby" className="relative py-20 lg:py-24">
+    <section id="shortcut" className="relative py-20 lg:py-28">
+      <div className="pointer-events-none absolute right-0 top-16 h-[380px] w-[380px] rounded-full bg-[radial-gradient(circle,rgba(232,163,61,0.07),transparent_65%)]" aria-hidden />
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <Reveal className="flex flex-wrap items-center justify-between gap-4">
-          <p className="font-mono text-[11px] tracking-[0.3em] text-dune uppercase">Around the maidan — if you must</p>
-          <p className="font-mono text-[10px] tracking-[0.2em] text-dune/70 uppercase">also within ~1.8 km of your search</p>
+          <p className="font-mono text-[11px] tracking-[0.3em] text-dune uppercase">Around the maidan — no detours needed</p>
+          <p className="font-mono text-[10px] tracking-[0.2em] text-dune/70 uppercase">your search had 3 filters · one address answers all</p>
         </Reveal>
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {NEARBY.map((group, gi) => (
-            <Reveal key={group.label} delay={gi * 120}>
-              <div className="h-full rounded-xl border border-cream/10 bg-coal/60 p-6 transition-colors duration-300 hover:border-cream/25">
-                <p className="font-display text-lg font-bold text-cream">{group.label}</p>
-                <ul className="mt-4 divide-y divide-cream/8">
-                  {group.places.map((p) => (
-                    <li key={p.name} className="group flex items-center justify-between gap-3 py-3">
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-semibold text-parch/85 transition-colors group-hover:text-saffron">{p.name}</p>
-                        <p className="mt-0.5 flex items-center gap-2 font-mono text-[10px] text-dune">
-                          <span className="flex items-center gap-1 text-parch/70">
-                            {p.rating}
-                            <svg viewBox="0 0 24 24" className="h-2.5 w-2.5 text-saffron" fill="currentColor" aria-hidden>
-                              <path d="M12 2.4l2.9 6.1 6.7.7-5 4.5 1.4 6.6L12 17l-6 3.3 1.4-6.6-5-4.5 6.7-.7L12 2.4z" />
-                            </svg>
-                          </span>
-                          ({p.reviews}) · {p.price}
-                        </p>
-                      </div>
-                      <span className="shrink-0 rounded-full border border-cream/12 px-2.5 py-1 font-mono text-[9px] tracking-[0.15em] text-dune">{p.dist}</span>
+
+        <SectionHead
+          no="✳"
+          kicker="The Shortcut"
+          lines={[
+            <span key="1">Google gave you three</span>,
+            <span key="2">
+              categories. <em className="font-light italic text-saffron">Ek hi address.</em>
+            </span>,
+          ]}
+        />
+
+        <div className="mt-12 grid gap-5 lg:grid-cols-5">
+          {/* small plates — wide card */}
+          <Reveal className="lg:col-span-3">
+            <div className="group relative h-full overflow-hidden rounded-2xl border border-cream/10 bg-coal/70 p-7 transition-all duration-500 hover:-translate-y-1 hover:border-saffron/45 hover:shadow-[0_24px_60px_-24px_rgba(232,163,61,0.3)] sm:p-9">
+              <span className="absolute right-6 top-6 font-mono text-[9px] tracking-[0.28em] text-dune uppercase">google filter ①</span>
+              <p className="flex items-center gap-2.5 font-mono text-[10px] tracking-[0.3em] text-flame uppercase">
+                <Flame className="h-3.5 w-3.5" /> “Small plates”
+              </p>
+              <h3 className="mt-3 font-display text-2xl font-black text-cream sm:text-3xl">Choti plates? Poora tandoor.</h3>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-parch/65">
+                Starters aur street-style small plates ka poora lineup — tandoor se seedha, aadha bhi order karo, poora bhi.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2.5">
+                {SMALL_PLATES.map((d) => (
+                  <a
+                    key={d.id}
+                    href={`#dish-${d.id}`}
+                    className="flex items-center gap-2 rounded-full border border-cream/12 bg-char/60 px-4 py-2 font-mono text-[10px] tracking-[0.12em] text-parch/80 uppercase transition-all duration-300 hover:-translate-y-0.5 hover:border-saffron/60 hover:text-saffron"
+                  >
+                    {d.name}
+                    <span className="text-saffron/80">₹{d.price}</span>
+                  </a>
+                ))}
+              </div>
+              <a href="#menu" className="group/link mt-7 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-saffron uppercase transition-colors hover:text-haldi">
+                Full starters & fusion menu <ArrowUpRight className="h-3 w-3 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+              </a>
+            </div>
+          </Reveal>
+
+          {/* group-friendly + drive-thru — stacked */}
+          <div className="flex flex-col gap-5 lg:col-span-2">
+            <Reveal delay={120} className="flex-1">
+              <div className="group h-full rounded-2xl border border-cream/10 bg-gradient-to-br from-soot to-coal p-7 transition-all duration-500 hover:-translate-y-1 hover:border-saffron/45">
+                <span className="font-mono text-[9px] tracking-[0.28em] text-dune uppercase">google filter ②</span>
+                <p className="mt-3 flex items-center gap-2.5 font-mono text-[10px] tracking-[0.3em] text-flame uppercase">
+                  <Plate className="h-3.5 w-3.5" /> “Group-friendly”
+                </p>
+                <h3 className="mt-3 font-display text-xl font-black text-cream">Jitne log, utna makkhan.</h3>
+                <ul className="mt-5 space-y-3">
+                  {GROUP_PROOF.map((g) => (
+                    <li key={g.k} className="flex items-center gap-3">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-saffron/30 text-saffron">{g.icon}</span>
+                      <span className="text-sm">
+                        <span className="font-bold text-parch/90">{g.k}</span>
+                        <span className="ml-2 font-mono text-[10px] tracking-wide text-dune">{g.v}</span>
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
             </Reveal>
-          ))}
+
+            <Reveal delay={220}>
+              <div className="group rounded-2xl border border-cream/10 bg-coal/70 p-7 transition-all duration-500 hover:-translate-y-1 hover:border-saffron/45">
+                <span className="font-mono text-[9px] tracking-[0.28em] text-dune uppercase">google filter ③</span>
+                <p className="mt-3 flex items-center gap-2.5 font-mono text-[10px] tracking-[0.3em] text-flame uppercase">
+                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
+                    <path d="M3 16c0-4 3-9 9-9s9 5 9 9" />
+                    <path d="M7 16h10M12 16v4" />
+                  </svg>
+                  “Drive-thru option”
+                </p>
+                <h3 className="mt-3 font-display text-xl font-black text-cream">Gaadi se bhi, ghar tak bhi.</h3>
+                <p className="mt-3 text-sm leading-relaxed text-parch/65">
+                  Drive-through, takeaway aur no-contact delivery — <span className="font-mono text-xs text-parch/85">{INFO.delivery}</span>. Kulcha garam pahunchta hai; promise.
+                </p>
+              </div>
+            </Reveal>
+          </div>
         </div>
-        <Reveal delay={200} className="mt-8 text-center">
+
+        <Reveal delay={200} className="mt-10 text-center">
           <p className="font-display text-xl font-bold text-parch/80">
-            No offence to any of them. But you already found <em className="italic text-saffron">the Hhouse.</em>
+            Search mein aur bhi naam aaye the. <em className="italic text-saffron">Makkhan sirf yahan milta hai.</em>
           </p>
         </Reveal>
       </div>

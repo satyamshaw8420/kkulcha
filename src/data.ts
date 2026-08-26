@@ -295,37 +295,6 @@ export function busyLabel(v: number): string {
   return "Usually not too busy";
 }
 
-/* ---------------- nearby (straight from the map results) ---------------- */
-
-export type Nearby = { name: string; rating: number; reviews: string; price: string; dist: string };
-
-export const NEARBY: { label: string; places: Nearby[] }[] = [
-  {
-    label: "Small plates",
-    places: [
-      { name: "Skylark Restaurant", rating: 4.1, reviews: "1.5K", price: "₹400–600", dist: "1.3 km" },
-      { name: "Dilli Khaas", rating: 4.2, reviews: "284", price: "₹400–1,000", dist: "1.2 km" },
-      { name: "Ghar Ka Khana", rating: 4.0, reviews: "101", price: "₹1–200", dist: "1.4 km" },
-    ],
-  },
-  {
-    label: "Group-friendly",
-    places: [
-      { name: "The Champaran House", rating: 4.6, reviews: "203", price: "₹200–400", dist: "1.8 km" },
-      { name: "Ek Chumuk Chaa", rating: 4.6, reviews: "165", price: "₹200–400", dist: "1.3 km" },
-      { name: "Khai Khai Restaurant", rating: 4.2, reviews: "10", price: "₹200–400", dist: "950 m" },
-    ],
-  },
-  {
-    label: "Drive-thru option",
-    places: [
-      { name: "Khana Khazana", rating: 4.2, reviews: "2.9K", price: "₹200–600", dist: "1.4 km" },
-      { name: "Kichhukshan Restaurant", rating: 4.0, reviews: "4.2K", price: "₹200–400", dist: "1.2 km" },
-      { name: "National Hotel & Restaurant", rating: 3.9, reviews: "491", price: "₹200–400", dist: "1.2 km" },
-    ],
-  },
-];
-
 /* ---------------- facts, links, services ---------------- */
 
 export const INFO = {
