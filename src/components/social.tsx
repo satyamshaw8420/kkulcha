@@ -175,6 +175,123 @@ export function GallerySection() {
   );
 }
 
+/* ================= interlude — The Lounge (hookah) ================= */
+
+function SmokeWisp({ className, delay }: { className: string; delay: string }) {
+  return (
+    <svg viewBox="0 0 60 160" className={`smoke pointer-events-none absolute ${className}`} style={{ animationDelay: delay }} aria-hidden>
+      <path
+        d="M30 155c-14-18 16-30 2-52s-18-30-4-50 18-28 4-46"
+        fill="none"
+        stroke="rgba(216,198,168,0.5)"
+        strokeWidth="5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+const LOUNGE_VIBES = ["Rooftop evenings", "Watch the match", "Chilled corners", "Flavours rotate — ask the lounge"];
+
+export function LoungeSection() {
+  return (
+    <section id="lounge" className="relative overflow-hidden border-y border-cream/8 bg-[#130f0a] py-24 lg:py-32">
+      {/* ambient */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="absolute -right-32 top-0 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(232,163,61,0.09),transparent_65%)]" />
+        <div className="absolute -left-24 bottom-0 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(210,88,46,0.1),transparent_65%)]" />
+        <span className="absolute left-1/2 top-8 -translate-x-1/2 select-none font-display text-[170px] font-black leading-none text-cream/[0.03]">
+          हुक्का
+        </span>
+      </div>
+
+      <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-12 lg:px-8">
+        {/* image with drifting smoke */}
+        <div className="relative lg:col-span-5">
+          <Reveal>
+            <div className="relative">
+              <div className="kenburns overflow-hidden rounded-[22px] border border-cream/12 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.85)]">
+                <img src={IMG.hookah} alt="Ornate hookah with smoke curling in the warm lounge light" className="aspect-[4/5] w-full object-cover" loading="lazy" />
+              </div>
+              <SmokeWisp className="left-1/2 top-6 h-28 w-10 -translate-x-1/2" delay="0s" />
+              <SmokeWisp className="left-[38%] top-12 h-20 w-8" delay="2.6s" />
+              <SmokeWisp className="left-[58%] top-2 h-24 w-9" delay="5s" />
+              <span className="absolute -bottom-4 left-5 rounded-full bg-saffron px-4 py-1.5 font-mono text-[9px] font-semibold tracking-[0.22em] text-char uppercase">
+                after dark · the lounge
+              </span>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* copy + combo */}
+        <div className="lg:col-span-7">
+          <SectionHead
+            no="✳"
+            kicker="The Lounge · हुक्का"
+            lines={[
+              <span key="1">The kulcha ends.</span>,
+              <span key="2">
+                The evening <em className="font-light italic text-saffron">doesn't.</em>
+              </span>,
+            ]}
+          />
+          <Reveal delay={150} className="mt-8 max-w-2xl space-y-5">
+            <p className="text-lg leading-relaxed text-parch/80">
+              Google's own summary says it plainly — diners <span className="text-saffron">"also enjoy the hookah."</span>{" "}
+              Once the thalis clear, the lounge takes over: amber light, slow smoke, the match on the screen, and
+              enough chatter to outlast the coals.
+            </p>
+            <p className="leading-relaxed text-parch/60">
+              Their Facebook keeps teasing the move everyone makes — the{" "}
+              <span className="text-parch/85">₹900 table combo: hookah + drink + snacks</span>. Dine, chill, watch the
+              match. Reviewers add the rooftop to the list of reasons to stay past dessert.
+            </p>
+          </Reveal>
+
+          {/* the combo card */}
+          <Reveal delay={220} className="mt-9 max-w-2xl">
+            <div className="group relative overflow-hidden rounded-2xl border border-saffron/35 bg-gradient-to-br from-soot via-coal to-char p-7 transition-all duration-500 hover:-translate-y-1 hover:border-saffron/70 hover:shadow-[0_24px_60px_-20px_rgba(232,163,61,0.35)] sm:p-8">
+              <span className="absolute right-5 top-5 rounded-full border border-cream/15 px-3 py-1 font-mono text-[8px] tracking-[0.25em] text-dune uppercase">
+                via their Facebook
+              </span>
+              <p className="font-mono text-[10px] tracking-[0.32em] text-saffron uppercase">Table combo</p>
+              <div className="mt-3 flex flex-wrap items-end gap-x-5 gap-y-2">
+                <span className="font-display text-6xl font-black leading-none text-cream">₹900</span>
+                <span className="pb-1.5 font-mono text-[11px] tracking-[0.2em] text-parch/70 uppercase">per table</span>
+              </div>
+              <p className="mt-4 font-display text-2xl font-bold text-haldi">Hookah + Drink + Snacks</p>
+              <p className="mt-2 font-mono text-[11px] tracking-[0.22em] text-dune uppercase">Dine · Chill · Watch the match · Dobson Rd</p>
+            </div>
+          </Reveal>
+
+          {/* vibes */}
+          <Reveal delay={280} className="mt-7 flex max-w-2xl flex-wrap gap-2.5">
+            {LOUNGE_VIBES.map((v) => (
+              <span key={v} className="flex items-center gap-2 rounded-full border border-cream/12 bg-coal/60 px-4 py-2 font-mono text-[10px] tracking-[0.16em] text-parch/75 uppercase transition-all duration-300 hover:-translate-y-0.5 hover:border-saffron/50 hover:text-saffron">
+                <svg viewBox="0 0 24 24" className="h-3 w-3 text-saffron/70" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+                  <path d="M8 20c2.5-1.4 2.5-3.6 0-5s-2.5-3.6 0-5M15 20c2.5-1.4 2.5-3.6 0-5s-2.5-3.6 0-5" />
+                </svg>
+                {v}
+              </span>
+            ))}
+          </Reveal>
+
+          <Reveal delay={340} className="mt-8 max-w-2xl border-l-2 border-saffron/50 pl-5">
+            <p className="font-display text-lg font-bold italic text-parch/90">"Super best hookah and food. Awesome ambience. Best staff and service."</p>
+            <p className="mt-2 font-mono text-[9px] tracking-[0.25em] text-dune uppercase">— rama kanth · Google review</p>
+          </Reveal>
+
+          <Reveal delay={380} className="mt-6">
+            <p className="font-mono text-[10px] leading-relaxed tracking-[0.18em] text-dune/80 uppercase">
+              18+ · designated lounge area · smoke responsibly — the kulcha still comes first
+            </p>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ================= 06 — The Rush (popular times) ================= */
 
 export function RushSection() {

@@ -205,6 +205,7 @@ const NAV = [
   { id: "tandoor", label: "The Fire" },
   { id: "menu", label: "The Menu" },
   { id: "word", label: "The Word" },
+  { id: "lounge", label: "The Lounge" },
   { id: "rush", label: "The Rush" },
   { id: "visit", label: "Visit" },
 ];

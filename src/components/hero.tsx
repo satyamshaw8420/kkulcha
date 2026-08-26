@@ -137,12 +137,24 @@ export default function Hero() {
               { icon: <Smoke className="h-3.5 w-3.5" />, label: "Hookah lounge" },
               { icon: <Flame className="h-3.5 w-3.5" />, label: "Clay tandoor" },
               { icon: <Spark className="h-3.5 w-3.5" />, label: "Kids' menu" },
-            ].map((b) => (
-              <span key={b.label} className="flex items-center gap-2 rounded-full border border-cream/12 bg-coal/60 px-4 py-2 font-mono text-[10px] tracking-[0.18em] text-parch/75 uppercase transition-colors duration-300 hover:border-saffron/50 hover:text-saffron">
-                {b.icon}
-                {b.label}
-              </span>
-            ))}
+            ].map((b) => {
+              const cls = "flex items-center gap-2 rounded-full border border-cream/12 bg-coal/60 px-4 py-2 font-mono text-[10px] tracking-[0.18em] text-parch/75 uppercase transition-colors duration-300 hover:border-saffron/50 hover:text-saffron";
+              const inner = (
+                <>
+                  {b.icon}
+                  {b.label}
+                </>
+              );
+              return b.label === "Hookah lounge" ? (
+                <a key={b.label} href="#lounge" className={cls}>
+                  {inner}
+                </a>
+              ) : (
+                <span key={b.label} className={cls}>
+                  {inner}
+                </span>
+              );
+            })}
           </Reveal>
         </div>
 

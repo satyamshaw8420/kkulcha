@@ -190,6 +190,27 @@ section {
 .float-y {
   animation: floatY 5.5s ease-in-out infinite;
 }
+
+.smoke {
+  animation: smokeDrift 8s ease-in-out infinite;
+  filter: blur(7px);
+}
+@keyframes smokeDrift {
+  0% {
+    transform: translateY(12px) translateX(0) scale(0.9);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.55;
+  }
+  60% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-70px) translateX(22px) scale(1.5);
+    opacity: 0;
+  }
+}
 @keyframes floatY {
   50% {
     transform: translateY(-9px);
@@ -241,11 +262,13 @@ section {
   .stamp-spin,
   .float-y,
   .ember,
+  .smoke,
   .pin-ring,
   .animate-fade-up {
     animation: none !important;
   }
-  .ember {
+  .ember,
+  .smoke {
     display: none;
   }
   .bar-grow {

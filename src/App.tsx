@@ -2,7 +2,7 @@ import Hero from "./components/hero";
 import MenuSection from "./components/menu";
 import { Footer, Grain, Header, Ticker } from "./components/chrome";
 import { HouseSection, TandoorSection } from "./components/story";
-import { GallerySection, ReviewsSection, RushSection } from "./components/social";
+import { GallerySection, LoungeSection, ReviewsSection, RushSection } from "./components/social";
 import { NearbySection, VisitSection } from "./components/visit";
 
 export default function App() {
@@ -17,6 +17,7 @@ export default function App() {
         <MenuSection />
         <ReviewsSection />
         <GallerySection />
+        <LoungeSection />
         <RushSection />
         <NearbySection />
         <VisitSection />
