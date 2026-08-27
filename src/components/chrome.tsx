@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { INFO, TICKER } from "../data";
 import { useEmbers, useInView } from "../hooks";
+import { useReservation } from "../context/ReservationContext";
 
 /* ================= custom inline icons ================= */
 
@@ -214,6 +215,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
   const [open, setOpen] = useState(false);
+  const { openReservation } = useReservation();
 
   useEffect(() => {
     const onScroll = () => {
@@ -265,12 +267,13 @@ export function Header() {
                 <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-saffron transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
-            <a
-              href={INFO.phoneHref}
-              className="ml-2 rounded-full bg-saffron px-5 py-2.5 font-mono text-[11px] font-semibold tracking-[0.18em] text-char uppercase transition-all duration-300 hover:-translate-y-0.5 hover:bg-haldi hover:shadow-[0_8px_30px_-8px_rgba(232,163,61,0.55)]"
+            <button
+              type="button"
+              onClick={openReservation}
+              className="ml-2 rounded-full bg-saffron px-5 py-2.5 font-mono text-[11px] font-semibold tracking-[0.18em] text-char uppercase transition-all duration-300 hover:-translate-y-0.5 hover:bg-haldi hover:shadow-[0_8px_30px_-8px_rgba(232,163,61,0.55)] cursor-pointer"
             >
               Reserve
-            </a>
+            </button>
           </nav>
 
           <button
@@ -302,9 +305,16 @@ export function Header() {
             {n.label}
           </a>
         ))}
-        <a href={INFO.phoneHref} className="mt-8 inline-block w-fit rounded-full bg-saffron px-8 py-3.5 font-mono text-xs font-semibold tracking-[0.2em] text-char uppercase">
-          Reserve · {INFO.phoneDisplay}
-        </a>
+        <button
+          type="button"
+          onClick={() => {
+            setOpen(false);
+            openReservation();
+          }}
+          className="mt-8 inline-block w-fit rounded-full bg-saffron px-8 py-3.5 font-mono text-xs font-semibold tracking-[0.2em] text-char uppercase cursor-pointer"
+        >
+          Reserve a Table
+        </button>
       </div>
     </>
   );

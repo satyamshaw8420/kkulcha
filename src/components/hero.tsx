@@ -1,5 +1,6 @@
 import { IMG, INFO, RATING } from "../data";
 import { useOpenStatus, useReducedMotion, useScramble, useTypewriter } from "../hooks";
+import { useReservation } from "../context/ReservationContext";
 import { Embers, Flame, MaskLines, Reveal, Smoke, Spark, Stars, VegMark } from "./chrome";
 
 function SearchPill() {
@@ -47,6 +48,7 @@ export default function Hero() {
   const reduced = useReducedMotion();
   const line1 = useScramble("KKULCHA", true, 30);
   const line2 = useScramble("HHOUSE", true, 34);
+  const { openReservation } = useReservation();
 
   return (
     <section id="top" className="relative overflow-hidden pt-32 pb-14 lg:pt-40">
@@ -110,16 +112,17 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={280} className="mt-10 flex flex-wrap items-center gap-4">
-            <a
-              href={INFO.phoneHref}
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-saffron px-8 py-4 font-mono text-xs font-semibold tracking-[0.2em] text-char uppercase transition-transform duration-300 hover:-translate-y-1"
+            <button
+              type="button"
+              onClick={openReservation}
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-saffron px-8 py-4 font-mono text-xs font-semibold tracking-[0.2em] text-char uppercase transition-transform duration-300 hover:-translate-y-1 cursor-pointer shadow-[0_10px_30px_-10px_rgba(232,163,61,0.6)]"
             >
               <span className="absolute inset-0 -translate-x-full bg-haldi transition-transform duration-500 group-hover:translate-x-0" />
               <span className="relative">Reserve a table</span>
               <svg viewBox="0 0 24 24" className="relative h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
                 <path d="M4 12h16m-6-6 6 6-6 6" />
               </svg>
-            </a>
+            </button>
             <a
               href="#menu"
               className="inline-flex items-center gap-2 rounded-full border border-cream/20 px-7 py-4 font-mono text-xs tracking-[0.2em] text-cream uppercase transition-all duration-300 hover:border-saffron/60 hover:text-saffron"

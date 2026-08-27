@@ -1,6 +1,7 @@
 import { DISHES, INFO, SERVICES } from "../data";
 import { useOpenStatus } from "../hooks";
-import { ArrowUpRight, Flame, PinIcon, PhoneIcon, Plate, Reveal, SectionHead, Smoke, Spark, Stars } from "./chrome";
+import { useReservation } from "../context/ReservationContext";
+import { ArrowUpRight, Flame, PinIcon, PhoneIcon, Plate, Reveal, SectionHead, Smoke, Spark, Stars, VegMark } from "./chrome";
 
 /* ================= the shortcut — one address, three cravings ================= */
 /* Google's map showed 3 category filters near this search. The Hhouse covers all three —
@@ -195,6 +196,8 @@ function MapCard() {
 
 export function VisitSection() {
   const status = useOpenStatus();
+  const { openReservation } = useReservation();
+
   return (
     <section id="visit" className="relative py-24 lg:py-32">
       <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[700px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(232,163,61,0.06),transparent_65%)]" aria-hidden />
@@ -202,85 +205,162 @@ export function VisitSection() {
         <div className="lg:col-span-6">
           <SectionHead
             no="07"
-            kicker="Visit"
+            kicker="Visit Us"
             lines={[
-              <span key="1">Ground floor, Ajmer</span>,
+              <span key="1">Find Our</span>,
               <span key="2">
-                Mansion — <em className="font-light italic text-saffron">follow the makkhan.</em>
+                <em className="font-light italic text-saffron">Locations.</em>
               </span>,
             ]}
           />
 
-          <div className="mt-12 space-y-7">
-            <Reveal className="flex gap-5">
-              <span className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-saffron/40 text-saffron">
-                <PinIcon className="h-4 w-4" />
-              </span>
-              <div>
-                <p className="font-mono text-[10px] tracking-[0.3em] text-dune uppercase">Address</p>
-                <address className="mt-2 text-parch/85 not-italic leading-relaxed">
-                  {INFO.addressLines.map((l) => (
-                    <span key={l} className="block">{l}</span>
-                  ))}
-                </address>
-                <a href={INFO.mapsUrl} target="_blank" rel="noreferrer" className="group mt-3 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] text-saffron uppercase hover:text-haldi">
-                  Get directions <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-              </div>
-            </Reveal>
-
-            <Reveal delay={80} className="flex gap-5">
-              <span className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-saffron/40 text-saffron">
-                <PhoneIcon className="h-4 w-4" />
-              </span>
-              <div>
-                <p className="font-mono text-[10px] tracking-[0.3em] text-dune uppercase">Reservations</p>
-                <a href={INFO.phoneHref} className="mt-2 block font-display text-2xl font-black text-cream transition-colors hover:text-saffron">{INFO.phoneDisplay}</a>
-                <p className="mt-1 font-mono text-[10px] tracking-[0.15em] text-dune uppercase">Call ahead on weekends — the 8 pm wave is real</p>
-              </div>
-            </Reveal>
-
-            <Reveal delay={140}>
-              <div className="rounded-xl border border-cream/10 bg-coal/70 p-6">
-                <div className="flex items-center justify-between">
-                  <p className="font-mono text-[10px] tracking-[0.3em] text-dune uppercase">Hours</p>
-                  <span className={`flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] uppercase ${status.open ? "text-sage" : "text-flame"}`}>
-                    <span className={`h-1.5 w-1.5 rounded-full ${status.open ? "bg-sage" : "bg-flame"}`} />
-                    {status.short}
+          <div className="mt-10 space-y-5">
+            {/* Card 1: Location / Howrah Main */}
+            <Reveal>
+              <div className="group rounded-2xl border border-cream/10 bg-coal/70 p-6 transition-all duration-300 hover:border-saffron/40 hover:bg-coal/90">
+                <div className="flex items-start gap-4">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-saffron/40 bg-saffron/10 text-saffron">
+                    <PinIcon className="h-5 w-5" />
                   </span>
-                </div>
-                <div className="mt-4 space-y-2">
-                  {["Monday – Sunday", "Delivery window"].map((row, i) => (
-                    <div key={row} className="flex items-center justify-between border-b border-dashed border-cream/10 pb-2 text-sm">
-                      <span className="text-parch/75">{row}</span>
-                      <span className="font-mono text-xs text-cream">{i === 0 ? INFO.hours : INFO.delivery}</span>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-display text-lg font-black text-cream">
+                        Howrah Main
+                      </h4>
+                      <span className="rounded-full border border-sage/30 bg-sage/10 px-2.5 py-0.5 font-mono text-[9px] tracking-wider text-sage uppercase">
+                        Primary Outlet
+                      </span>
                     </div>
-                  ))}
-                  <div className="flex items-center justify-between pt-1 text-sm">
-                    <span className="text-parch/75">For one (296 reports)</span>
-                    <span className="font-mono text-xs text-cream">₹200 – ₹1,200</span>
+                    <address className="mt-2 text-sm not-italic leading-relaxed text-parch/85">
+                      28/3, Dobson Road, Ajmer mansion,<br />
+                      Howrah, West Bengal 711101
+                    </address>
+                    <div className="mt-3 flex flex-wrap items-center gap-4">
+                      <a
+                        href={INFO.mapsUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group/link inline-flex items-center gap-1.5 font-mono text-[11px] tracking-wider text-saffron uppercase hover:text-haldi"
+                      >
+                        Get Directions{" "}
+                        <ArrowUpRight className="h-3 w-3 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                      </a>
+                      <span className="font-mono text-[10px] text-dune">·</span>
+                      <a
+                        href={INFO.phoneHref}
+                        className="inline-flex items-center gap-1.5 font-mono text-[11px] text-parch/80 hover:text-saffron"
+                      >
+                        <PhoneIcon className="h-3.5 w-3.5 text-saffron" />
+                        {INFO.phoneDisplay}
+                      </a>
+                    </div>
                   </div>
-                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-cream/8">
-                    <div className="h-full w-full rounded-full bg-gradient-to-r from-sage via-saffron to-flame opacity-80" />
-                  </div>
-                </div>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {SERVICES.map((s) => (
-                    <span key={s} className="rounded-full border border-cream/12 px-3 py-1 font-mono text-[9px] tracking-[0.15em] text-parch/70 uppercase">{s}</span>
-                  ))}
                 </div>
               </div>
             </Reveal>
 
-            <Reveal delay={200} className="flex flex-wrap gap-3.5 pt-1">
-              <a href={INFO.phoneHref} className="rounded-full bg-saffron px-7 py-3.5 font-mono text-[11px] font-semibold tracking-[0.18em] text-char uppercase transition-all duration-300 hover:-translate-y-0.5 hover:bg-haldi hover:shadow-[0_10px_30px_-10px_rgba(232,163,61,0.6)]">
-                Call to reserve
+            {/* Card 2: Opening Hours */}
+            <Reveal delay={80}>
+              <div className="group rounded-2xl border border-cream/10 bg-coal/70 p-6 transition-all duration-300 hover:border-saffron/40 hover:bg-coal/90">
+                <div className="flex items-start gap-4">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-saffron/40 bg-saffron/10 text-saffron">
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                      <circle cx="12" cy="12" r="9" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 7v5l3 3" />
+                    </svg>
+                  </span>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-display text-lg font-black text-cream">
+                        Opening Hours
+                      </h4>
+                      <span className={`flex items-center gap-1.5 font-mono text-[9px] tracking-wider uppercase rounded-full px-2.5 py-0.5 border ${
+                        status.open ? "border-sage/30 bg-sage/10 text-sage" : "border-flame/30 bg-flame/10 text-flame"
+                      }`}>
+                        <span className={`h-1.5 w-1.5 rounded-full ${status.open ? "bg-sage animate-pulse" : "bg-flame"}`} />
+                        {status.open ? "Open Now" : "Closed"}
+                      </span>
+                    </div>
+
+                    <div className="mt-3 space-y-2 font-mono text-xs">
+                      <div className="flex items-center justify-between border-b border-cream/5 pb-2 text-parch/85">
+                        <span>Monday – Sunday</span>
+                        <span className="font-bold text-cream">11:00 AM – 11:00 PM</span>
+                      </div>
+                      <div className="flex items-center justify-between pt-1 text-dune text-[11px]">
+                        <span>Service Status</span>
+                        <span className="text-haldi font-medium">Open all 7 days</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Card 3: Payments */}
+            <Reveal delay={140}>
+              <div className="group rounded-2xl border border-cream/10 bg-coal/70 p-6 transition-all duration-300 hover:border-saffron/40 hover:bg-coal/90">
+                <div className="flex items-start gap-4">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-saffron/40 bg-saffron/10 text-saffron">
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <path d="M2 10h20" />
+                    </svg>
+                  </span>
+                  <div className="flex-1">
+                    <h4 className="font-display text-lg font-black text-cream">
+                      Payments & Delivery
+                    </h4>
+                    <p className="mt-1 text-xs text-parch/70">
+                      Seamless cashless and instant digital payment methods available
+                    </p>
+
+                    <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                      <div className="rounded-xl border border-cream/10 bg-char/60 p-2.5 text-center font-mono text-[10px] text-parch/85">
+                        <span className="block text-cream font-bold">Cash & Cards</span>
+                        <span className="text-[9px] text-dune">All cards accepted</span>
+                      </div>
+                      <div className="rounded-xl border border-cream/10 bg-char/60 p-2.5 text-center font-mono text-[10px] text-parch/85">
+                        <span className="block text-cream font-bold">UPI / PayEazy</span>
+                        <span className="text-[9px] text-dune">Instant scan & pay</span>
+                      </div>
+                      <div className="rounded-xl border border-cream/10 bg-char/60 p-2.5 text-center font-mono text-[10px] text-parch/85">
+                        <span className="block text-cream font-bold">Online Delivery</span>
+                        <span className="text-[9px] text-dune">Doorstep delivery</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Action Bar: High-End Reserve Button */}
+            <Reveal delay={180} className="pt-2 flex flex-wrap items-center gap-3.5">
+              <button
+                type="button"
+                onClick={openReservation}
+                className="group relative flex items-center gap-3 overflow-hidden rounded-full bg-saffron px-8 py-4 font-mono text-xs font-bold tracking-[0.2em] text-char uppercase transition-all duration-300 hover:bg-haldi hover:shadow-[0_0_35px_rgba(232,163,61,0.6)] hover:scale-[1.02] cursor-pointer"
+              >
+                <span>Reserve a Table</span>
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-char/20 text-char text-xs transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+              </button>
+
+              <a
+                href={INFO.phoneHref}
+                className="rounded-full border border-cream/20 bg-coal/60 px-6 py-4 font-mono text-xs tracking-wider text-cream uppercase transition-all duration-300 hover:border-saffron/60 hover:text-saffron"
+              >
+                Call: {INFO.phoneDisplay}
               </a>
-              <a href={INFO.mapsUrl} target="_blank" rel="noreferrer" className="rounded-full border border-cream/20 px-7 py-3.5 font-mono text-[11px] tracking-[0.18em] text-cream uppercase transition-all duration-300 hover:border-saffron/60 hover:text-saffron">
+
+              <a
+                href={INFO.mapsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full border border-cream/20 bg-coal/60 px-6 py-4 font-mono text-xs tracking-wider text-cream uppercase transition-all duration-300 hover:border-saffron/60 hover:text-saffron"
+              >
                 Directions
-              </a>
-              <a href={INFO.siteUrl} target="_blank" rel="noreferrer" className="rounded-full border border-cream/20 px-7 py-3.5 font-mono text-[11px] tracking-[0.18em] text-cream uppercase transition-all duration-300 hover:border-saffron/60 hover:text-saffron">
-                Official site
               </a>
             </Reveal>
           </div>
@@ -307,3 +387,4 @@ export function VisitSection() {
     </section>
   );
 }
+
