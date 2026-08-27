@@ -52,6 +52,7 @@ export const DISHES: Dish[] = [
     cat: "kulchas",
     price: 180,
     desc: "Stuffed edge-to-edge with masala paneer, sealed, baked till the seams just give.",
+    img: "/dishes/paneer_kulcha.jpg",
   },
   {
     id: "cheese-kulcha",
@@ -60,6 +61,8 @@ export const DISHES: Dish[] = [
     cat: "kulchas",
     price: 170,
     desc: "Molten cheese locked inside a pillowy kulcha — opens like a small, delicious volcano.",
+    img: "/dishes/cheese_kulcha.jpg",
+    tag: "Crowd Favorite",
   },
   {
     id: "italian-baked",
@@ -68,6 +71,8 @@ export const DISHES: Dish[] = [
     cat: "kulchas",
     price: 210,
     desc: "Where Dobson Road meets Milan — mozzarella and smoked tomato baked till it pulls in ribbons.",
+    img: "/dishes/italian_baked_kulcha.jpg",
+    tag: "Chef Special",
   },
   {
     id: "adrak-roti",
@@ -76,6 +81,7 @@ export const DISHES: Dish[] = [
     cat: "kulchas",
     price: 70,
     desc: "Crisp roti crushed with ginger and green chilli. The table's alarm clock.",
+    img: "/dishes/adrak_mirchi_roti.jpg",
   },
   {
     id: "tandoori-roti",
@@ -84,6 +90,7 @@ export const DISHES: Dish[] = [
     cat: "kulchas",
     price: 45,
     desc: "Charred at the edges, honest to the core. Built for gravies.",
+    img: "/dishes/tandoori_roti.jpg",
   },
   {
     id: "malai-tikka",
@@ -92,6 +99,7 @@ export const DISHES: Dish[] = [
     cat: "starters",
     price: 270,
     desc: "Cream-soaked tikka seared over open flame. Arrives still sighing.",
+    img: "/dishes/malai_tikka.jpg",
     tag: "Chef's pick",
   },
   {
@@ -101,6 +109,7 @@ export const DISHES: Dish[] = [
     cat: "starters",
     price: 240,
     desc: "Button mushrooms stuffed with herbed paneer, blistered in the tandoor's mouth.",
+    img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: "dhokla",
@@ -109,6 +118,7 @@ export const DISHES: Dish[] = [
     cat: "starters",
     price: 130,
     desc: "Soft-steamed Gujarati classic, tempered in-house with mustard seed and curry leaf.",
+    img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: "kathi-roll",
@@ -147,6 +157,7 @@ export const DISHES: Dish[] = [
     cat: "mains",
     price: 250,
     desc: "Velvet tomato gravy, butter-finished, loaded with tandoor-kissed paneer.",
+    img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: "dal-makhani",
@@ -155,6 +166,8 @@ export const DISHES: Dish[] = [
     cat: "mains",
     price: 230,
     desc: "Black urad simmered overnight on the tandoor's dying embers. Patience you can taste.",
+    img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80",
+    tag: "Slow Cooked",
   },
   {
     id: "baby-corn",
@@ -172,6 +185,7 @@ export const DISHES: Dish[] = [
     cat: "fusion",
     price: 240,
     desc: "Penne folded through parmesan cream with roasted garlic and cracked pepper.",
+    img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281290?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: "fries",
@@ -180,6 +194,7 @@ export const DISHES: Dish[] = [
     cat: "fusion",
     price: 150,
     desc: "Dusted twice, served dangerously hot, gone in minutes.",
+    img: "https://images.unsplash.com/photo-1576107232684-1279f3908594?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: "brownies",
@@ -188,6 +203,7 @@ export const DISHES: Dish[] = [
     cat: "sweets",
     price: 150,
     desc: "Dense, fudgy, and slightly underbaked on purpose.",
+    img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: "sizzling-brownie",
@@ -215,6 +231,7 @@ export const DISHES: Dish[] = [
     cat: "sweets",
     price: 140,
     desc: "The one reviewers keep naming. Thick, frothy, unreasonably good.",
+    img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=800&q=80",
     tag: "Reviewer favourite",
   },
 ];
