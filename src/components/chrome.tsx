@@ -236,9 +236,8 @@ export function Header() {
         />
       </div>
       <header
-        className={`fixed inset-x-0 top-0 z-[65] transition-all duration-500 ${
-          scrolled ? "border-b border-cream/10 bg-char/85 py-3 backdrop-blur-md" : "bg-transparent py-5"
-        }`}
+        className={`fixed inset-x-0 top-0 z-[65] transition-all duration-500 ${scrolled ? "border-b border-cream/10 bg-char/85 py-3 backdrop-blur-md" : "bg-transparent py-5"
+          }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 lg:px-8">
           <a href="#top" className="group flex items-center gap-3">
@@ -287,18 +286,16 @@ export function Header() {
 
       {/* mobile menu */}
       <div
-        className={`fixed inset-0 z-[60] flex flex-col justify-center bg-char/97 px-8 backdrop-blur-sm transition-all duration-500 lg:hidden ${
-          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-        }`}
+        className={`fixed inset-0 z-[60] flex flex-col justify-center bg-char/97 px-8 backdrop-blur-sm transition-all duration-500 lg:hidden ${open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+          }`}
       >
         {NAV.map((n, i) => (
           <a
             key={n.id}
             href={`#${n.id}`}
             onClick={() => setOpen(false)}
-            className={`border-b border-cream/10 py-4 font-display text-3xl font-black text-cream transition-all duration-500 hover:pl-3 hover:text-saffron ${
-              open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-            }`}
+            className={`border-b border-cream/10 py-4 font-display text-3xl font-black text-cream transition-all duration-500 hover:pl-3 hover:text-saffron ${open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+              }`}
             style={{ transitionDelay: `${i * 60}ms` }}
           >
             <span className="mr-4 font-mono text-xs text-saffron">0{i + 1}</span>
@@ -317,68 +314,91 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-cream/10 bg-coal">
-      <div className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 select-none whitespace-nowrap font-display text-[22vw] font-black leading-none tracking-tight outline-word lg:text-[17vw]" aria-hidden>
+    <footer className="relative overflow-hidden border-t border-saffron/10 bg-gradient-to-b from-char to-coal">
+      {/* Ambient glowing orb in the background */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-saffron/5 blur-[120px] pointer-events-none" />
+
+      {/* Background KKULCHA text with enhanced styling */}
+      <div className="pointer-events-none absolute -top-4 left-1/2 -translate-x-1/2 select-none whitespace-nowrap font-display text-[12vw] font-black leading-none tracking-tight outline-word lg:text-[8vw] opacity-30 blur-[2px] transition-all duration-1000" aria-hidden>
         KKULCHA
       </div>
-      <div className="relative mx-auto max-w-7xl px-5 pt-40 pb-10 lg:px-8">
-        <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-5">
-            <p className="font-display text-2xl font-black text-cream">THE KKULCHA HHOUSE CAFE<span className="text-saffron">®</span></p>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-parch/70">
+
+      <div className="relative mx-auto max-w-7xl px-5 pt-32 pb-10 lg:px-8">
+        <div className="grid gap-12 md:grid-cols-12 md:gap-8 lg:gap-12">
+          
+          {/* Main Info Column */}
+          <div className="md:col-span-5 md:pr-8">
+            <p className="font-display text-3xl font-black bg-gradient-to-r from-cream to-parch bg-clip-text text-transparent drop-shadow-sm">
+              THE KKULCHA HHOUSE CAFE<span className="text-saffron">®</span>
+            </p>
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-parch/70 selection:bg-saffron selection:text-coal">
               A 100% pure-veg kulcha house & hookah lounge on Dobson Road, Howrah — rated{" "}
-              <span className="text-saffron">4.5★</span> by 1,108 hungry Googlers. Kulchas first, questions later.
+              <span className="text-saffron font-bold drop-shadow-[0_0_8px_rgba(232,163,61,0.4)]">4.5★</span> by 1,108 hungry Googlers. Kulchas first, questions later.
             </p>
-            <p className="mt-6 flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-dune uppercase">
-              <VegMark className="h-3.5 w-3.5" /> Pure veg kitchen · FSSAI-minded · makkhan-forward
-            </p>
+            <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-saffron/20 bg-saffron/5 px-4 py-2 font-mono text-[10px] tracking-[0.2em] text-dune uppercase backdrop-blur-sm shadow-[0_0_15px_rgba(232,163,61,0.05)]">
+              <VegMark className="h-4 w-4" /> 
+              <span>Pure veg · FSSAI · makkhan</span>
+            </div>
           </div>
-          <div className="md:col-span-2">
-            <p className="font-mono text-[10px] tracking-[0.3em] text-dune uppercase">Explore</p>
-            <ul className="mt-4 space-y-2.5">
+
+          {/* Explore Links */}
+          <div className="md:col-span-2 md:border-l md:border-cream/5 md:pl-8">
+            <p className="font-mono text-[10px] tracking-[0.3em] text-saffron uppercase font-semibold">Explore</p>
+            <ul className="mt-5 space-y-3">
               {NAV.map((n) => (
                 <li key={n.id}>
-                  <a href={`#${n.id}`} className="text-sm text-parch/80 transition-colors hover:text-saffron">
+                  <a href={`#${n.id}`} className="group flex items-center text-sm text-parch/80 transition-all duration-300 hover:text-saffron hover:translate-x-1.5">
+                    <span className="mr-2 h-[1px] w-0 bg-saffron transition-all duration-300 group-hover:w-3"></span>
                     {n.label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="md:col-span-3">
-            <p className="font-mono text-[10px] tracking-[0.3em] text-dune uppercase">Find us</p>
-            <address className="mt-4 space-y-2.5 text-sm not-italic text-parch/80">
+
+          {/* Find Us */}
+          <div className="md:col-span-3 md:border-l md:border-cream/5 md:pl-8">
+            <p className="font-mono text-[10px] tracking-[0.3em] text-saffron uppercase font-semibold">Find us</p>
+            <address className="mt-5 space-y-3 text-sm not-italic text-parch/80">
               {INFO.addressLines.map((l) => (
-                <p key={l}>{l}</p>
+                <p key={l} className="leading-relaxed">{l}</p>
               ))}
-              <p>
-                <a href={INFO.phoneHref} className="text-saffron hover:text-haldi">
+              <p className="pt-2">
+                <a href={INFO.phoneHref} className="inline-flex items-center gap-2 text-saffron hover:text-haldi transition-colors duration-300 font-medium">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                   {INFO.phoneDisplay}
                 </a>
               </p>
-              <p className="font-mono text-xs text-dune">Open daily · {INFO.hours}</p>
+              <p className="font-mono text-[11px] text-dune mt-2 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-saffron animate-pulse"></span>
+                Open daily · {INFO.hours}
+              </p>
             </address>
           </div>
-          <div className="md:col-span-2">
-            <p className="font-mono text-[10px] tracking-[0.3em] text-dune uppercase">Elsewhere</p>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              <li><a href={INFO.siteUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-parch/80 hover:text-saffron">Official site <ArrowUpRight className="h-3 w-3" /></a></li>
-              <li><a href={INFO.zomatoUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-parch/80 hover:text-saffron">Zomato <ArrowUpRight className="h-3 w-3" /></a></li>
-              <li><a href={INFO.fbUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-parch/80 hover:text-saffron">Facebook <ArrowUpRight className="h-3 w-3" /></a></li>
-              <li><a href={INFO.mapsUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-parch/80 hover:text-saffron">Google Maps <ArrowUpRight className="h-3 w-3" /></a></li>
+
+          {/* Elsewhere Links */}
+          <div className="md:col-span-2 md:border-l md:border-cream/5 md:pl-8">
+            <p className="font-mono text-[10px] tracking-[0.3em] text-saffron uppercase font-semibold">Elsewhere</p>
+            <ul className="mt-5 space-y-3 text-sm">
+              <li><a href={INFO.siteUrl} target="_blank" rel="noreferrer" className="group flex w-fit items-center gap-2 text-parch/80 transition-all duration-300 hover:text-saffron hover:translate-x-1.5">Official site <ArrowUpRight className="h-3 w-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a></li>
+              <li><a href={INFO.zomatoUrl} target="_blank" rel="noreferrer" className="group flex w-fit items-center gap-2 text-parch/80 transition-all duration-300 hover:text-saffron hover:translate-x-1.5">Zomato <ArrowUpRight className="h-3 w-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a></li>
+              <li><a href={INFO.fbUrl} target="_blank" rel="noreferrer" className="group flex w-fit items-center gap-2 text-parch/80 transition-all duration-300 hover:text-saffron hover:translate-x-1.5">Facebook <ArrowUpRight className="h-3 w-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a></li>
+              <li><a href={INFO.mapsUrl} target="_blank" rel="noreferrer" className="group flex w-fit items-center gap-2 text-parch/80 transition-all duration-300 hover:text-saffron hover:translate-x-1.5">Google Maps <ArrowUpRight className="h-3 w-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a></li>
             </ul>
           </div>
         </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-cream/10 pt-6 sm:flex-row sm:items-center">
-          <p className="font-mono text-[10px] tracking-[0.2em] text-dune uppercase">
-            Fan-made tribute built from the public Google listing · not the official site
+
+        {/* Bottom Bar */}
+        <div className="mt-20 flex flex-col items-center justify-between gap-6 rounded-2xl border border-cream/5 bg-coal/40 p-6 backdrop-blur-md sm:flex-row sm:px-8">
+          <p className="text-center font-mono text-[10px] tracking-[0.2em] text-dune/80 uppercase sm:text-left">
+            Fan-made tribute built from the public Google listing <span className="hidden sm:inline">·</span><br className="sm:hidden" /> not the official site
           </p>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="group flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-parch/70 uppercase transition-colors hover:text-saffron"
+            className="group relative flex items-center gap-3 overflow-hidden rounded-full bg-saffron/10 px-5 py-2.5 font-mono text-[10px] tracking-[0.25em] text-saffron uppercase transition-all duration-300 hover:bg-saffron hover:text-coal hover:shadow-[0_0_20px_rgba(232,163,61,0.3)]"
           >
-            Back to the tandoor
-            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <span className="relative z-10">Back to the tandoor</span>
+            <svg viewBox="0 0 24 24" className="relative z-10 h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" />
             </svg>
           </button>

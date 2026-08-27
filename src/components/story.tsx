@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { FEATURES, INFO, SERVICES, TANDOOR_STEPS } from "../data";
 import { Flame, Plate, Reveal, SectionHead, Smoke, VegMark } from "./chrome";
+import { AnimatedBlaze, AnimatedDough } from "./stage-illustrations";
 
 /* ================= 01 — The House (sticky two-column) ================= */
 
@@ -180,15 +181,21 @@ export function TandoorSection() {
                     ))}
                   </div>
                 </div>
-                <div className="kenburns relative min-h-[240px] md:min-h-[340px]">
+                <div className="relative min-h-[280px] md:min-h-[360px] overflow-hidden">
                   {step.img ? (
-                    <img src={step.img} alt={step.title} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                    <div className="kenburns absolute inset-0 h-full w-full">
+                      <img src={step.img} alt={step.title} className="h-full w-full object-cover" loading="lazy" />
+                    </div>
+                  ) : step.no === "01" ? (
+                    <AnimatedDough />
+                  ) : step.no === "03" ? (
+                    <AnimatedBlaze />
                   ) : (
                     <div className="dot-grid absolute inset-0 flex items-center justify-center bg-soot">
                       <Flame className="h-16 w-16 text-flame/60" />
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-coal/50 to-transparent" aria-hidden />
+                  <div className="absolute inset-0 bg-gradient-to-t from-coal/50 to-transparent pointer-events-none" aria-hidden />
                 </div>
               </div>
             </article>
