@@ -94,7 +94,7 @@ export default function MenuSection() {
               className="inline-flex items-center gap-2 rounded-full border border-saffron/60 bg-saffron/10 px-5 py-2.5 font-mono text-[11px] font-bold tracking-wider text-saffron uppercase transition-all duration-300 hover:bg-saffron hover:text-char hover:shadow-[0_0_20px_rgba(232,163,61,0.4)] cursor-pointer"
             >
               <Plate className="h-3.5 w-3.5" />
-              <span>Explore Complete Menu (150+ Items)</span>
+              <span>Explore Complete Menu (168 Items)</span>
             </button>
           </div>
         </div>
@@ -171,7 +171,7 @@ export default function MenuSection() {
           <div>
             <div className="flex items-center gap-3">
               <Stars value={4.5} size={14} />
-              <p className="font-display text-lg font-bold text-cream">150+ Authentic Pure-Veg Delicacies & Lounge Specials</p>
+              <p className="font-display text-lg font-bold text-cream">168 Authentic Pure-Veg Delicacies & Lounge Specials</p>
             </div>
             <p className="mt-2 font-mono text-[11px] tracking-[0.18em] text-dune uppercase">Full multi-cuisine menu · Soups · Tandoor · Mains · Pasta · Desserts · Hookah</p>
           </div>

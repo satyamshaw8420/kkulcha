@@ -9,11 +9,20 @@ import { ArrowUpRight, Flame, PinIcon, PhoneIcon, Plate, Reveal, SectionHead, Sm
 
 const SMALL_PLATES = DISHES.filter((d) => d.cat === "starters" || d.cat === "fusion").slice(0, 6);
 
-const GROUP_PROOF = [
+const GROUP_PROOF: { icon: React.ReactNode; stars?: React.ReactNode; k: string; v: string }[] = [
   { icon: <Plate className="h-4 w-4" />, k: "All you can eat", v: "options on request" },
   { icon: <Spark className="h-4 w-4" />, k: "Kids' menu", v: "little kulcha fans welcome" },
   { icon: <Smoke className="h-4 w-4" />, k: "₹900 table combo", v: "hookah + drink + snacks" },
-  { icon: <Stars value={4.5} size={11} />, k: "1,108 reviews", v: "mostly tables of friends" },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-4 w-4 fill-saffron text-saffron" aria-hidden>
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+      </svg>
+    ),
+    stars: <Stars value={4.5} size={11} />,
+    k: "1,108 reviews",
+    v: "mostly tables of friends",
+  },
 ];
 
 export function NearbySection() {
@@ -76,14 +85,17 @@ export function NearbySection() {
                   <Plate className="h-3.5 w-3.5" /> “Group-friendly”
                 </p>
                 <h3 className="mt-3 font-display text-xl font-black text-cream">Jitne log, utna makkhan.</h3>
-                <ul className="mt-5 space-y-3">
+                <ul className="mt-5 space-y-3.5">
                   {GROUP_PROOF.map((g) => (
                     <li key={g.k} className="flex items-center gap-3">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-saffron/30 text-saffron">{g.icon}</span>
-                      <span className="text-sm">
-                        <span className="font-bold text-parch/90">{g.k}</span>
-                        <span className="ml-2 font-mono text-[10px] tracking-wide text-dune">{g.v}</span>
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-saffron/30 bg-saffron/5 text-saffron">
+                        {g.icon}
                       </span>
+                      <div className="flex flex-wrap items-center gap-2">
+                        {g.stars && <span className="flex items-center shrink-0">{g.stars}</span>}
+                        <span className="text-sm font-bold text-parch/90 leading-none">{g.k}</span>
+                        <span className="font-mono text-[10px] tracking-wide text-dune leading-none">{g.v}</span>
+                      </div>
                     </li>
                   ))}
                 </ul>

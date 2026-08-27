@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { COMPLETE_MENU, type MenuCategory, type MenuItem } from "../menuData";
 import { Flame, Spark, VegMark, Plate } from "./chrome";
 
@@ -11,9 +11,22 @@ export function FullMenuModal({ isOpen, onClose }: FullMenuModalProps) {
   const [selectedCat, setSelectedCat] = useState<string>("all");
   const [search, setSearch] = useState<string>("");
 
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    if (sliderRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+      setCanScrollLeft(scrollLeft > 5);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 5);
+    }
+  };
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      setTimeout(checkScroll, 100);
     } else {
       document.body.style.overflow = "unset";
       setSearch("");
@@ -24,6 +37,23 @@ export function FullMenuModal({ isOpen, onClose }: FullMenuModalProps) {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    checkScroll();
+  }, [selectedCat]);
+
+  const handleScroll = (dir: "left" | "right") => {
+    if (sliderRef.current) {
+      const scrollAmount = dir === "left" ? -280 : 280;
+      sliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      setTimeout(checkScroll, 350);
+    }
+  };
+
+  const handleCatClick = (catId: string, e: React.MouseEvent<HTMLButtonElement>) => {
+    setSelectedCat(catId);
+    e.currentTarget.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  };
+
   const filteredCategories = useMemo(() => {
     const q = search.trim().toLowerCase();
     return COMPLETE_MENU.map((cat) => {
@@ -33,10 +63,22 @@ export function FullMenuModal({ isOpen, onClose }: FullMenuModalProps) {
       if (!q) {
         return cat;
       }
-      const matchingItems = cat.items.filter((item) =>
-        item.name.toLowerCase().includes(q)
+      // Split search query into individual words for flexible matching
+      // If ANY word from the query matches any part of item name, it's a match
+      const searchWords = q.split(/\s+/).filter((w) => w.length > 0);
+      const matchingItems = cat.items.filter((item) => {
+        const itemName = item.name.toLowerCase();
+        const itemDesc = (item.desc || "").toLowerCase();
+        return searchWords.some(
+          (word) => itemName.includes(word) || itemDesc.includes(word)
+        );
+      });
+      const catTitleLower = cat.title.toLowerCase();
+      const catHindiLower = (cat.hindiTitle || "").toLowerCase();
+      const catMatches = searchWords.some(
+        (word) => catTitleLower.includes(word) || catHindiLower.includes(word)
       );
-      if (matchingItems.length === 0 && !cat.title.toLowerCase().includes(q)) {
+      if (matchingItems.length === 0 && !catMatches) {
         return null;
       }
       return {
@@ -133,31 +175,67 @@ export function FullMenuModal({ isOpen, onClose }: FullMenuModalProps) {
             </div>
           </div>
 
-          {/* Category Horizontal Filter Bar */}
-          <div className="mt-3.5 -mx-6 sm:-mx-8 px-6 sm:px-8 flex items-center gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
+          {/* Category Horizontal Slider Bar with Prev/Next Navigation Controls */}
+          <div className="relative mt-3.5 flex items-center">
+            {/* Left Scroll Button */}
             <button
-              onClick={() => setSelectedCat("all")}
-              className={`shrink-0 rounded-full px-4 py-1.5 font-mono text-[10px] tracking-wider uppercase transition-all cursor-pointer ${
-                selectedCat === "all"
-                  ? "bg-saffron font-bold text-char shadow-[0_0_15px_rgba(232,163,61,0.5)]"
-                  : "border border-cream/15 bg-[#140c06] text-parch/70 hover:border-saffron/40 hover:text-cream"
+              onClick={() => handleScroll("left")}
+              disabled={!canScrollLeft}
+              className={`absolute left-0 z-20 flex h-8 w-8 items-center justify-center rounded-full border border-saffron/40 bg-[#1f140b]/95 text-saffron shadow-lg backdrop-blur-md transition-all duration-200 cursor-pointer ${
+                canScrollLeft
+                  ? "opacity-100 hover:bg-saffron hover:text-char hover:scale-110 shadow-[0_0_12px_rgba(232,163,61,0.4)]"
+                  : "opacity-20 cursor-not-allowed border-cream/10 text-cream/20"
               }`}
+              aria-label="Scroll categories left"
             >
-              All Categories ({COMPLETE_MENU.length})
+              ‹
             </button>
-            {COMPLETE_MENU.map((cat) => (
+
+            {/* Slider Track */}
+            <div
+              ref={sliderRef}
+              onScroll={checkScroll}
+              className="flex items-center gap-2 overflow-x-auto px-9 py-1.5 scroll-smooth select-none w-full"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
               <button
-                key={cat.id}
-                onClick={() => setSelectedCat(cat.id)}
-                className={`shrink-0 rounded-full px-3.5 py-1.5 font-mono text-[10px] tracking-wider uppercase transition-all cursor-pointer ${
-                  selectedCat === cat.id
-                    ? "bg-saffron font-bold text-char shadow-[0_0_15px_rgba(232,163,61,0.5)]"
-                    : "border border-cream/15 bg-[#140c06] text-parch/70 hover:border-saffron/40 hover:text-cream"
+                onClick={(e) => handleCatClick("all", e)}
+                className={`shrink-0 rounded-full px-4 py-1.5 font-mono text-[10px] tracking-wider uppercase transition-all duration-200 cursor-pointer ${
+                  selectedCat === "all"
+                    ? "bg-saffron font-bold text-char shadow-[0_0_15px_rgba(232,163,61,0.6)] scale-105"
+                    : "border border-cream/15 bg-[#140c06] text-parch/70 hover:border-saffron/50 hover:text-cream"
                 }`}
               >
-                {cat.title} ({cat.items.length})
+                All Categories ({COMPLETE_MENU.length})
               </button>
-            ))}
+              {COMPLETE_MENU.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={(e) => handleCatClick(cat.id, e)}
+                  className={`shrink-0 rounded-full px-3.5 py-1.5 font-mono text-[10px] tracking-wider uppercase transition-all duration-200 cursor-pointer ${
+                    selectedCat === cat.id
+                      ? "bg-saffron font-bold text-char shadow-[0_0_15px_rgba(232,163,61,0.6)] scale-105"
+                      : "border border-cream/15 bg-[#140c06] text-parch/70 hover:border-saffron/50 hover:text-cream"
+                  }`}
+                >
+                  {cat.title} ({cat.items.length})
+                </button>
+              ))}
+            </div>
+
+            {/* Right Scroll Button */}
+            <button
+              onClick={() => handleScroll("right")}
+              disabled={!canScrollRight}
+              className={`absolute right-0 z-20 flex h-8 w-8 items-center justify-center rounded-full border border-saffron/40 bg-[#1f140b]/95 text-saffron shadow-lg backdrop-blur-md transition-all duration-200 cursor-pointer ${
+                canScrollRight
+                  ? "opacity-100 hover:bg-saffron hover:text-char hover:scale-110 shadow-[0_0_12px_rgba(232,163,61,0.4)]"
+                  : "opacity-20 cursor-not-allowed border-cream/10 text-cream/20"
+              }`}
+              aria-label="Scroll categories right"
+            >
+              ›
+            </button>
           </div>
         </div>
 

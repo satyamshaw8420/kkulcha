@@ -160,6 +160,7 @@ export const COMPLETE_MENU: MenuCategory[] = [
       { name: "Lachuni Paneer Masala", price: 330 },
       { name: "Matar Paneer", price: 330 },
       { name: "Malai Kofta", price: 330, isChefSpecial: true, isPopular: true },
+      { name: "Paneer Butter Masala", price: 330 },
       { name: "Paneer Chatpata", price: 330, isSpicy: true },
       { name: "Tandoori Matka Dal", price: 402, isChefSpecial: true },
     ],
