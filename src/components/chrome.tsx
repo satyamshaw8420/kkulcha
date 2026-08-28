@@ -400,9 +400,6 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-20 flex flex-col items-center justify-between gap-6 rounded-2xl border border-cream/5 bg-coal/40 p-6 backdrop-blur-md sm:flex-row sm:px-8">
-          <p className="text-center font-mono text-[10px] tracking-[0.2em] text-dune/80 uppercase sm:text-left">
-            Fan-made tribute built from the public Google listing <span className="hidden sm:inline">·</span><br className="sm:hidden" /> not the official site
-          </p>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="group relative flex items-center gap-3 overflow-hidden rounded-full bg-saffron/10 px-5 py-2.5 font-mono text-[10px] tracking-[0.25em] text-saffron uppercase transition-all duration-300 hover:bg-saffron hover:text-coal hover:shadow-[0_0_20px_rgba(232,163,61,0.3)]"
